@@ -1,7 +1,25 @@
 .App {
   text-align: center;
+
+}
+.actualForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
+.button{
+
+  background-color: #61dafb;
+  height: 30px;
+  width: 70px;
+
+}
+.button:active{
+  background-color: #5771ff;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

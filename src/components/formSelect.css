@@ -1,0 +1,22 @@
+.FormSelect{
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+
+}
+
+select{
+    margin: 10px 0px;
+    width: 280px;
+    height: 30px;
+    border-radius:5px;
+    border: 1px solid grey;
+}
+
+
+label{
+    font-size: 14px;
+    color: grey;
+}
+
+

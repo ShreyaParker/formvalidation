@@ -2,61 +2,62 @@ import {useState} from "react";
 import {addDoc,collection} from "firebase/firestore"
 import {db} from "./firebase-config"
 import FormInput from "./components/FormInput";
+import FormSelect from "./components/FormSelect";
 import "./App.css"
 const App = () => {
   const [values, setValues] = useState({
     Name: "",
-    Phone: "",
-    Address: "",
-    Gender:"",
-
   });
+  const Gender =[
+    {
+      id: 1,
+    }
+  ]
 
   const inputs = [
     {
       id: 1,
       name: "Name",
       type: "text",
-      placeholder: "name",
+      placeholder: "Full Name",
       errorMessage:
           "Username should be 3 characters",
-      label: "name",
-      pattern: "^[A-Za-z\\s]{3, }$",
+      label: "Full Name:",
+      pattern: "^[A-Za-z\\s]{3,100}$",
       required: true,
     },
     {
       id: 2,
       name: "Phone",
       type: "tel",
-      pattern: "^[0-9]{10,10}",
+      pattern: "^[0-9]{10,10}$",
       placeholder: "Phone",
       errorMessage: "It should be a valid 10 digit number!",
-      label: "Phone",
+      label: "Phone:",
       required: true,
     },
     {
       id: 3,
-      name: "Address",
+      name: "Address line 1",
       type: "text",
-      placeholder: "Address",
+      placeholder: "Address line 1",
       errorMessage:
           "Address should be atleast 10 characters long",
-      label: "Address",
-      pattern: "^[A-Za-z0-9'\\.\\-\\s\\,]{10, }$",
+      label: "Address line 1:",
+      pattern: "^[A-Za-z0-9- -.-,-:-'-;-/-]{10,200}$",
       required: true,
     },
     {
-      id: 4,
-      name: "Gender",
+      id: 3,
+      name: "Address line 2",
       type: "text",
-      placeholder: "Gender",
+      placeholder: "Address line 2",
       errorMessage:
-          "specify either as female male or other",
-      label: "Gender",
-      pattern: "^[F-e-m-a-l-e,M-a-l-e,f-e-m-a-l-e,o-t-h-e-r,O-t-h-e-r,m-a-l-e]$",
-      required: true,
+          "Address should be atleast 10 characters long",
+      label: "Address line 2:",
+      pattern: "^[A-Za-z0-9- -.-,-:-'-;-/-]{10,200}$",
+    },
 
-    }
 
   ];
 
@@ -71,6 +72,7 @@ const App = () => {
         .catch(error => {
           console.log(error.message)
         })
+    alert("Result is stored in firebase")
   };
 
   const onChange = (e) => {
@@ -79,8 +81,8 @@ const App = () => {
 
   return (
       <div className="app">
-        <form onSubmit={handleSubmit}>
-          <h1>Register</h1>
+        <form onSubmit={handleSubmit} className="actualForm" >
+          <h1>Form</h1>
           {inputs.map((input) => (
               <FormInput
                   key={input.id}
@@ -89,7 +91,18 @@ const App = () => {
                   onChange={onChange}
               />
           ))}
-          <button type="submit" >Submit</button>
+          <div className="formselect">
+            {Gender.map((input)=>(
+                <FormSelect
+                    key={Gender.id}
+                    {...input}
+                    value={values[Gender.name]}
+                    onChange={onChange}
+                />
+            ))}
+
+          </div>
+            <button type="submit" className="button">Submit</button>
         </form>
       </div>
   );
